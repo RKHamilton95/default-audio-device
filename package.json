@@ -1,0 +1,22 @@
+{
+  "name": "audio-device-ext",
+  "version": "1.0.0",
+  "description": "Switch Audio Devices",
+  "main": "index.js",
+  "scripts": {
+    "install": "electron-rebuild",
+    "build": "deckboard-kit --build"
+  },
+  "author": "Ryan",
+  "license": "MIT",
+  "dependencies": {
+    "audio-devices": "0.0.7",
+    "deckboard-kit": "https://github.com/rivafarabi/deckboard-kit.git",
+    "electron": "4.0.3",
+    "naudiodon": "^2.1.2",
+    "serialport": "^8.0.6"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.9.0"
+  }
+}

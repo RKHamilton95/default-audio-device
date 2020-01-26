@@ -1,0 +1,8 @@
+name: audio-device-ext
+package: audio-device-set
+version: 1.0.0
+description: Switch Audio Devices
+author: Ryan
+license: MIT
+url: ""
+asarUrl: ""
