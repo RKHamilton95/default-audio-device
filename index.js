@@ -1,6 +1,5 @@
 const { Extension, log, INPUT_METHOD, PLATFORMS } = require("deckboard-kit");
 
-var portAudio = require("naudiodon");
 const audioDevices = require("audio-devices");
 
 class AudioDevicesExtension extends Extension {
@@ -10,10 +9,10 @@ class AudioDevicesExtension extends Extension {
     this.platforms = [PLATFORMS.WINDOWS];
     this.inputs = [
       {
-        label: "Action",
+        label: "Select Default Device",
         value: "action",
-        icon: "book",
-        color: "#8E44AD",
+        icon: "headphones",
+        color: "#28C3CF",
         input: [
           {
             label: "Audio Device",
@@ -25,11 +24,11 @@ class AudioDevicesExtension extends Extension {
                 value: "speaker"
               },
               {
-                label: "Headset",
-                value: "headset"
+                label: "Headphones",
+                value: "headphones"
               },
               {
-                label: "Devices",
+                label: "Show Devices",
                 value: "devices"
               }
             ]
@@ -38,59 +37,39 @@ class AudioDevicesExtension extends Extension {
       },
       {
         label: "Set Default Audio",
-        value: "defAudio",
-        icon: "book",
-        color: "#8E44AD",
+        value: "userDefinedDevice",
+        icon: "headphones-alt",
+        color: "#28C3CF",
         input: [
           {
             label: "Default Audio Device",
-            ref: "defDevice",
+            ref: "userInputDevice",
             type: INPUT_METHOD.INPUT_TEXT
-            // items: [
-            //   {
-            //     label: "Default Device",
-            //     ref: "defDevice"
-            //   }
-            // ]
           }
         ]
       }
     ];
   }
 
-  async execute(action, { device, defDevice }) {
-    log.error("------------------");
-    log.error(device);
-    log.error(defDevice);
-    log.error("------------------");
+  async execute(action, { device, userInputDevice }) {
     switch (action) {
       case "action":
         switch (device) {
           case "speaker":
-            log.error("Speaker");
-            log.error(
-              await Promise.resolve(audioDevices.setDevice("Speakers").then())
-            );
+            await Promise.resolve(audioDevices.setDevice("Speakers").then());
             break;
-          case "headset":
-            log.error("Headset");
-            log.error(
-              await Promise.resolve(audioDevices.setDevice("Headphones").then())
-            );
+          case "headphones":
+            await Promise.resolve(audioDevices.setDevice("Headphones").then());
             break;
           case "devices":
-            log.error("Devices");
             audioDevices.getDevices();
             break;
           default:
             break;
         }
         break;
-      case "defAudio":
-        log.error(portAudio.getDevices());
-        log.error(
-          await Promise.resolve(audioDevices.setDevice(defDevice).then())
-        );
+      case "userDefinedDevice":
+        await Promise.resolve(audioDevices.setDevice(userInputDevice).then());
         break;
       default:
         break;
